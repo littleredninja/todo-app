@@ -12,6 +12,8 @@ $(document).ready(function(){
 			url: "http://recruiting-api.nextcapital.com/users/" + userId + "/todos.json?api_token=" + apiToken,
 			type: "GET",
 			success: function(todos) {
+				console.log("i just got some todos!")
+				console.log(todos)
 			}
 			
 		});
@@ -30,16 +32,8 @@ $(document).ready(function(){
 				var user = createUser(data);
 				if (user.apiToken != null) {
 					$('#sign-in-form').hide();
-				}
-
-
-
-
-				if (user.todos === []) {
-					$('#todo-list').append("<p>looks like you need to add some todos!</p>")
-				}
-				else {
-					$('#todo-list').append(user.todos);
+				listTodos(user);
+				showTodos();
 				}
 			}
 		})
@@ -48,6 +42,24 @@ $(document).ready(function(){
 			return new User(userInfo);
 		}
 
+
+		var listTodos = function(user) {
+			console.log(user)
+			console.log(user.todos)
+			if (user.todos.length === 0) {
+				console.log("wassup")
+				$('#todo-list').prepend("<p>looks like you need to add some todos!</p>")
+				}
+			else {
+				console.log("what is this doing?!?!!?")
+				$('#todo-list').append("<p>lalalalalal!</p>")
+				}	
+			};
+
+			var showTodos = function() {
+				$('#todo-list').show()
+			}
+			
 
 	})
 	
