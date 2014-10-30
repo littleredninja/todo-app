@@ -4,7 +4,7 @@
 		<title>Let's Get Things Done</title>
 		<link rel="stylesheet" type="text/css" href="stylesheet.css">
 		<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="angular.min.js"></script>
+<!-- 		// <script type="text/javascript" src="angular.min.js"></script> -->
 	</head>
 
 	<body>
@@ -17,12 +17,16 @@
 		</form>
 
 
-		<div id="todo-list"> 
+		<div id="todo-space" class="hidden"> 
+		<button id="logout">Logout</button>
 			<div class="form">
 				<form id="new-todo-form">
 					<input id="new-todo" type="text" name="new-todo" placeholder="What do you need to do?">
 					<input id="new-todo-button" type="submit" name="new-todo-button" value="Create a new todo">
 				</form>
+			</div>
+			<div id="todo-list">
+			</div>
  		</div>
 
  		<div id="todo-done">
