@@ -1,6 +1,10 @@
-#todo-list {
+#todo-space {
 	display: none;
 	background-color: red;
 	width: 100%;
-	height: 150px;
+
+}
+
+#logout {
+	display: none;
 }
