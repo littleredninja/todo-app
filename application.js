@@ -37,14 +37,33 @@ $(document).ready(function(){
 	var listTodos = function(data) {
 		if (data.length === 0) {
 			$("#todo-list").prepend("<p>looks like you need to add some todos!</p>")
-			}
+		}
 		else {
 			for (i = 0; i < data.length; i++) {
-				$('#todo-list').append("<p>" + data[i].description + "</p>")
+				console.log(data);
+				$('#todo-list').append("<input class='todo-checkbox' type='checkbox' name='" + data[i].id + "' value='true'>" + data[i].description + "<br>");
 			}
-		}	
-	};
+		}
 
+		$('.todo-checkbox').change(function() {
+			console.log("I'm here!");
+			var todoId = $(this).attr("name");
+			if (this.checked) {
+				console.log("checked " + todoId);
+				var request = $.ajax({
+					url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+					type: "PUT",
+					data:  { api_token: sessionStorage.apiToken, is_complete: true }
+				});
+      }
+      else {
+      	console.log("unchecked " + todoId)
+      }
+
+    });
+
+
+	};
 
 	$('#new-todo-button').click(function(event){
 		event.preventDefault();
@@ -73,7 +92,7 @@ $(document).ready(function(){
 	}
 
 	var appendTodo = function(todo) {
-		$('#todo-list').append("<p>" + todo.description + "</p>")
+		$('#todo-list').append("<input type='checkbox' name='" + todo.id + "value='true'>" + todo.description + "<br>")
 	}
 
 	$("#logout").click(function(event){
@@ -84,7 +103,7 @@ $(document).ready(function(){
 		$('#todo-space').hide();
 		$('#sign-in-form').show();
 
-	})
+	});
 
 			
 
