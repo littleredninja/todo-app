@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+	var Todo = function(data) {
+		this.id = data.id;
+		this.description = data.description;
+		this.isComplete = data.is_complete;
+	}
+
 	$("#login").click(function(event) {
 		event.preventDefault();
 
@@ -40,30 +46,59 @@ $(document).ready(function(){
 		}
 		else {
 			for (i = 0; i < data.length; i++) {
-				console.log(data);
-				$('#todo-list').append("<input class='todo-checkbox' type='checkbox' name='" + data[i].id + "' value='true'>" + data[i].description + "<br>");
+				var todo = new Todo(data[i]);
+				if (todo.isComplete === false) {
+					$('#todo-list').append("<div class='todo' id='" + todo.id + "'>" + todo.description + "<div>");
+				}
+				else {
+					$('#todo-done').append("<div>" + todo.description + "<div>");
+
+				}
 			}
 		}
 
-		$('.todo-checkbox').change(function() {
-			console.log("I'm here!");
-			var todoId = $(this).attr("name");
+		$('.todo').change(function() {
+			var todoId = $(this).attr("id");
+			var todoDescription = $(this).text();
 			if (this.checked) {
 				console.log("checked " + todoId);
 				var request = $.ajax({
 					url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
 					type: "PUT",
-					data:  { api_token: sessionStorage.apiToken, is_complete: true }
+					data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: true }}
 				});
       }
       else {
-      	console.log("unchecked " + todoId)
+      	console.log("unchecked " + todoId);
+      	var request = $.ajax({
+					url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+					type: "PUT",
+					data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: false }}
+				});
       }
 
     });
 
 
 	};
+
+	// $(function() {
+ //    $( "#todo-list" ).droppable({
+ //      drop: function( event, ui ) {
+ //      	console.log(this);
+ //      	console.log("i've been moved to todo list!");
+ //        $( "#todo-list" ).append( this );
+ //        $( "#todo-done").remove( this );
+ //      }
+ //    });
+ //  });
+
+	var sortTodos = $(function() {
+    $( "#todo-list" ).sortable();
+    $( "#todo-list" ).disableSelection();
+    $( "#todo-done" ).sortable();
+    $( "#todo-done" ).disableSelection();
+  });
 
 	$('#new-todo-button').click(function(event){
 		event.preventDefault();
