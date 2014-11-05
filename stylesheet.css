@@ -1,29 +1,73 @@
+#container {
+	font-family: 'Open Sans', sans-serif;
+	margin: 20px;
+}	
+
+header {
+	text-align: center;
+	color: #fa8822;
+}
+
+#sign-in-form, #sign-up-form, #new-todo-form {
+	width: 40%;
+	margin: 20px auto;
+	text-align: center;
+}
+
+input {
+	width: 80%;
+	height: 40px;
+	border-radius: 5px;
+	margin: 10px auto;
+	padding: 3px;
+	font-size: 1.1em;
+}
+
 #todo-space {
 	display: none;
-	width: 90%;
 	margin: 10px auto;
 	padding: 20px;
 }
 
 #logout {
+	display: block;
 	width: 250px;
-	height: 60px;
+	height: 40px;
 	border-radius: 5px;
-	display: none;
-	margin: 10px auto;
-	color: #fff;
+	background-color: #fa8822;
 }
 
-#todo-list {
+.column {
 	width: 45%;
-	background-color: green;
-	display: inline-block;
+	text-align: center;
+}
+
+#todo-list-div {
 	float: left;
 }
 
-#todo-done {
-	width: 45%;
-	background-color: blue;
-	display: inline-block;
+#todo-done-div {
 	float: right;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	width: 80%;
+	height: 30px;
+	background-color: #CCCCCC;
+	border-radius: 5px;
+	margin: 5px auto;
+	padding: 4px;
+	color: #fff;
+}
+
+.button {
+	background-color: #199DE6;
+	color: #fff;
+	font-size: 1em;
 }

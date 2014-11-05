@@ -2,37 +2,56 @@
 <html>
 	<head>
 		<title>Let's Get Things Done</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="stylesheet.css">
 		<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="jquery-ui.min.js"></script>
+		<script src="application.js"></script>
 	</head>
 
 	<body>
-		<script src="application.js"></script>
+		<div id="container">
+			<header>
+				<h1>Let's Get Things Done!</h1>
+			</header>
+			<div id="login-space">
+				<form id="sign-in-form">
+					<h2> Log In </h2>
+					<input id="email" type="text" name="email" placeholder="Email">
+					<input id="password" type="password" name="password" placeholder="Password">
+					<input id="login-button" class="button" type="submit" name="login" value="Login">
+				</form>
 
-		<form id="sign-in-form">
-			<input id="email" type="text" name="email" placeholder="email">
-			<input id="password" type="password" name="password" placeholder="password">
-			<input id="login" type="submit" name="login" value="login">
-		</form>
-
-		<div id="todo-space" class="hidden"> 
-			<button id="logout">Logout</button>
-			<div class="form">
-				<form id="new-todo-form">
-					<input id="new-todo" type="text" name="new-todo" placeholder="What do you need to do?">
-					<input id="new-todo-button" type="submit" name="new-todo-button" value="Create a new todo">
+				<form id="sign-up-form">
+					<h2> Sign Up </h2>
+					<input id="email" type="text" name="email" placeholder="Email">
+					<input id="password" type="password" name="password" placeholder="Password">
+					<input id="sign-up-button" class="button" type="submit" name="login" value="Sign Up">
 				</form>
 			</div>
-			<ul id="todo-list" class="list">
-			</ul>
 
-	 		<ul id="todo-done" class="list">
-	 		</ul>
-	 		
- 		</div>
+			
+			<div id="todo-space"> 
+				<input id="logout" class="button" type="submit" name="logout" value="Logout">
+	
+				<form id="new-todo-form">
+					<input id="new-todo" type="text" name="new-todo" placeholder="What do you need to do?">
+					<input id="new-todo-button" class="button" type="submit" name="new-todo-button" value="Create a New Todo">
+				</form>
+				
+				<div id="todo-list-div" class="column">
+					<h2>Things to do</h2>
+					<ul id="todo-list" class="list">
+					</ul>
+				</div>
+				<div id="todo-done-div" class="column">
+					<h2>Things I've done</h2>
+			 		<ul id="todo-done" class="list">
+			 		</ul>		 		
+			 	</div>
+	 		</div>
 
-
+	 	</div>
 
 	</body>
 

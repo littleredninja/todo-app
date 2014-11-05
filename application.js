@@ -6,7 +6,7 @@ $(document).ready(function(){
 		this.isComplete = data.is_complete;
 	}
 
-	$("#login").click(function(event) {
+	$("#login-button").click(function(event) {
 		event.preventDefault();
 
 		var email = document.getElementById("email").value;
@@ -19,12 +19,15 @@ $(document).ready(function(){
 			success: function(data) {
 				setSessionInfo(data);
 				clearInputForms();
-				hideSignInForm();
+				hideLogIn();
+				showTodos();
+				getTodos();
+			},
+			error: function(data) {
+				alert("oops! something went wrong, please try again");
+				clearInputForms();
 			}
-
 		})
-		request.success(showTodos());
-		request.success(getTodos());
 	})
 
 	var clearInputForms = function() {
@@ -45,7 +48,7 @@ $(document).ready(function(){
 	
 	var listTodos = function(data) {
 		if (data.length === 0) {
-			$("#todo-list").prepend("<p>looks like you need to add some todos!</p>")
+			$("#todo-list").prepend("<p>Looks like you need to add some todos!</p>")
 		}
 		else {
 			for (i = 0; i < data.length; i++) {
@@ -74,9 +77,6 @@ $(document).ready(function(){
 				url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
 				type: "PUT",
 				data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: true }},
-				success: function(data) {
-					console.log(data);
-				}
     	});
     }
   });
@@ -89,9 +89,6 @@ $(document).ready(function(){
 				url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
 				type: "PUT",
 				data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: false }},
-				success: function(data) {
-					console.log(data);
-				}
     	});
     }
   });
@@ -99,12 +96,12 @@ $(document).ready(function(){
 	$('#new-todo-button').click(function(event){
 		event.preventDefault();
 		var description = document.getElementById("new-todo").value;
-		$('#new-todo-form').find("input[type=text]").val("");
 		var request = $.ajax({
 			url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos",
 			type: "POST",
-			data:  { api_token: sessionStorage.apiToken, todo: { description:  description } }
+			data:  { api_token: sessionStorage.apiToken, todo: { description: description } }
 		});
+		clearInputForms();
 		request.success(appendTodo);
 	})
 	
@@ -113,9 +110,9 @@ $(document).ready(function(){
 		sessionStorage.setItem("userId", data.id);
 	}
 
-	var hideSignInForm = function() {
+	var hideLogIn = function() {
 		if (sessionStorage.apiToken != null) {
-			$('#sign-in-form').hide();
+			$('#login-space').hide();
 			$("#logout").show();
 		}
 	}
@@ -130,7 +127,7 @@ $(document).ready(function(){
 		sessionStorage.clear();
 		$('#todo-list, #todo-done').empty();
 		$('#todo-space').hide();
-		$('#sign-in-form').show();
+		$('#login-space').show();
 	});
 
 });
