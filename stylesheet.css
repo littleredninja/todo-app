@@ -1,10 +1,29 @@
 #todo-space {
 	display: none;
-	background-color: red;
-	width: 100%;
-
+	width: 90%;
+	margin: 10px auto;
+	padding: 20px;
 }
 
 #logout {
+	width: 250px;
+	height: 60px;
+	border-radius: 5px;
 	display: none;
+	margin: 10px auto;
+	color: #fff;
+}
+
+#todo-list {
+	width: 45%;
+	background-color: green;
+	display: inline-block;
+	float: left;
+}
+
+#todo-done {
+	width: 45%;
+	background-color: blue;
+	display: inline-block;
+	float: right;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="todo">
+<html>
 	<head>
 		<title>Let's Get Things Done</title>
 		<link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -17,19 +17,19 @@
 		</form>
 
 		<div id="todo-space" class="hidden"> 
-		<button id="logout">Logout</button>
+			<button id="logout">Logout</button>
 			<div class="form">
 				<form id="new-todo-form">
 					<input id="new-todo" type="text" name="new-todo" placeholder="What do you need to do?">
 					<input id="new-todo-button" type="submit" name="new-todo-button" value="Create a new todo">
 				</form>
 			</div>
-			<div id="todo-list">
-			</div>
- 		</div>
+			<ul id="todo-list" class="list">
+			</ul>
 
- 		<div id="todo-done">
-
+	 		<ul id="todo-done" class="list">
+	 		</ul>
+	 		
  		</div>
 
 

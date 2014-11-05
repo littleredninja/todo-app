@@ -18,14 +18,18 @@ $(document).ready(function(){
 			data:  { email: email, password: password },
 			success: function(data) {
 				setSessionInfo(data);
-				$('#sign-in-form').find("input[type=text], input[type=password]").val("");
+				clearInputForms();
 				hideSignInForm();
 			}
+
 		})
 		request.success(showTodos());
 		request.success(getTodos());
-
 	})
+
+	var clearInputForms = function() {
+		$("input[type=text], input[type=password]").val("");
+	}
 
 	var showTodos = function() {
 		$("#todo-space").show();
@@ -39,7 +43,6 @@ $(document).ready(function(){
 		request.success(listTodos);
 	};
 	
-
 	var listTodos = function(data) {
 		if (data.length === 0) {
 			$("#todo-list").prepend("<p>looks like you need to add some todos!</p>")
@@ -48,56 +51,49 @@ $(document).ready(function(){
 			for (i = 0; i < data.length; i++) {
 				var todo = new Todo(data[i]);
 				if (todo.isComplete === false) {
-					$('#todo-list').append("<div class='todo' id='" + todo.id + "'>" + todo.description + "<div>");
+					appendTodo(todo);
 				}
 				else {
-					$('#todo-done').append("<div>" + todo.description + "<div>");
-
+					$('#todo-done').append("<li class='todo' draggable='true' id='" + todo.id + "'>" + todo.description + "</li>");
 				}
 			}
 		}
-
-		$('.todo').change(function() {
-			var todoId = $(this).attr("id");
-			var todoDescription = $(this).text();
-			if (this.checked) {
-				console.log("checked " + todoId);
-				var request = $.ajax({
-					url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
-					type: "PUT",
-					data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: true }}
-				});
-      }
-      else {
-      	console.log("unchecked " + todoId);
-      	var request = $.ajax({
-					url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
-					type: "PUT",
-					data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: false }}
-				});
-      }
-
-    });
-
-
 	};
 
-	// $(function() {
- //    $( "#todo-list" ).droppable({
- //      drop: function( event, ui ) {
- //      	console.log(this);
- //      	console.log("i've been moved to todo list!");
- //        $( "#todo-list" ).append( this );
- //        $( "#todo-done").remove( this );
- //      }
- //    });
- //  });
+	$(function() {
+    $( "#todo-list, #todo-done" ).sortable({
+      connectWith: ".list"
+    }).disableSelection();
+  });
 
-	var sortTodos = $(function() {
-    $( "#todo-list" ).sortable();
-    $( "#todo-list" ).disableSelection();
-    $( "#todo-done" ).sortable();
-    $( "#todo-done" ).disableSelection();
+  $( "#todo-done" ).droppable({
+    drop: function( event, ui ) {
+      var todoId = $(ui.draggable).attr("id");
+      var todoDescription = $(ui.draggable).text();
+			var request = $.ajax({
+				url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+				type: "PUT",
+				data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: true }},
+				success: function(data) {
+					console.log(data);
+				}
+    	});
+    }
+  });
+
+  $( "#todo-list" ).droppable({
+    drop: function( event, ui ) {
+      var todoId = $(ui.draggable).attr("id");
+      var todoDescription = $(ui.draggable).text();
+			var request = $.ajax({
+				url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+				type: "PUT",
+				data:  { api_token: sessionStorage.apiToken, todo: {description: todoDescription, is_complete: false }},
+				success: function(data) {
+					console.log(data);
+				}
+    	});
+    }
   });
 
 	$('#new-todo-button').click(function(event){
@@ -109,9 +105,7 @@ $(document).ready(function(){
 			type: "POST",
 			data:  { api_token: sessionStorage.apiToken, todo: { description:  description } }
 		});
-
 		request.success(appendTodo);
-
 	})
 	
 	var setSessionInfo = function(data) {
@@ -127,35 +121,18 @@ $(document).ready(function(){
 	}
 
 	var appendTodo = function(todo) {
-		$('#todo-list').append("<input type='checkbox' name='" + todo.id + "value='true'>" + todo.description + "<br>")
+		$('#todo-list').append("<li class='todo' draggable='true' id='" + todo.id + "'>" + todo.description + "</li>");
 	}
 
 	$("#logout").click(function(event){
 		event.preventDefault();
 		
 		sessionStorage.clear();
-		$('#todo-list').empty();
+		$('#todo-list, #todo-done').empty();
 		$('#todo-space').hide();
 		$('#sign-in-form').show();
-
 	});
 
-			
-
-	
 });
 
 
-
-
-// (function(){
-// 	var app = angular.module('todo', []);
-
-// 	app.controller('TodoController', function(){
-// 		this.list = getTodos();
-
-// 	});
-
-
-
-// })();
