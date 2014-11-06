@@ -10,9 +10,9 @@ Visit Let's Get Things Done to make your own to-do list!
 
 ##Dependencies
 
-[Next Capital API](https://github.com/clarkr/nextcapital-todo)
-[jQuery](http://jquery.com/)
-[jQuery UI](http://jqueryui.com/)
+ - [Next Capital API](https://github.com/clarkr/nextcapital-todo)
+ - [jQuery](http://jquery.com/)
+ - [jQuery UI](http://jqueryui.com/)
 
 ##Contributions
 
