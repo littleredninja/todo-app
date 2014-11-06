@@ -1,6 +1,6 @@
 #container {
 	font-family: 'Open Sans', sans-serif;
-	margin: 20px;
+	margin: 20px 20px 50px 20px;
 }	
 
 header {
@@ -8,7 +8,7 @@ header {
 	color: #fa8822;
 }
 
-#sign-in-form, #sign-up-form, #new-todo-form {
+#login-form, #sign-up-form, #new-todo-form {
 	width: 40%;
 	margin: 20px auto;
 	text-align: center;
