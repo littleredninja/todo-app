@@ -86,10 +86,10 @@ $(document).ready(function(){
 		for (i = 0; i < data.length; i++) {
 			var todo = new Todo(data[i]);
 			if (todo.isComplete === false) {
-				appendTodo(todo);
+				appendTodoList(todo);
 			}
 			else {
-				$('#todo-done').append("<li class='todo' draggable='true' id='" + todo.id + "'>" + todo.description + "</li>");
+				appendTodoDone(todo);
 			}
 		}
 	};
@@ -133,11 +133,15 @@ $(document).ready(function(){
 			data:  { api_token: sessionStorage.apiToken, todo: { description: description } }
 		});
 		clearInputForms();
-		request.success(appendTodo);
+		request.success(appendTodoList);
 	});
 	
-	var appendTodo = function(todo) {
+	var appendTodoList = function(todo) {
 		$('#todo-list').append("<li class='todo' draggable='true' id='" + todo.id + "'>" + todo.description + "</li>");
+	};	
+
+	var appendTodoDone = function(todo) {
+		$('#todo-done').append("<li class='todo' draggable='true' id='" + todo.id + "'>" + todo.description + "</li>");
 	};
 
 	$("#logout").click(function(event){
